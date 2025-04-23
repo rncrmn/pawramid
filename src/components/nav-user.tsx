@@ -33,6 +33,7 @@ import {LogoutLink} from "@kinde-oss/kinde-auth-nextjs";
 import {KindeUser} from "@kinde-oss/kinde-auth-nextjs/types";
 
 type NavUserProps = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     user: KindeUser<Record<string, any>>
 };
 

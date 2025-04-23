@@ -18,6 +18,7 @@ import {KindeUser} from "@kinde-oss/kinde-auth-nextjs/types";
 import {TeamSwitcher} from "@/components/team-switcher";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     user: KindeUser<Record<string, any>>;
 };
 

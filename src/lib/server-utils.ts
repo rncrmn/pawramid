@@ -26,7 +26,7 @@ async function getQueryWithStatusFilter({
     // Calculate pagination values
     const skip = (page - 1) * entries;
 
-    // Create the where clause
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let where: any = {userId};
 
     if (status && status !== '') {
@@ -62,7 +62,7 @@ export async function getQueryClients({
     // Calculate pagination values
     const skip = (page - 1) * entries;
 
-    // Always include userId, conditionally add name search
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const where: any = {userId: user.id}; // Base condition
     if (search) {
         where.name = {contains: search}; // Add a search filter
@@ -139,6 +139,7 @@ export async function getQueryPets({
     const skip = (page - 1) * entries;
 
     // Always include userId, conditionally add name search
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const where: any = {userId: user.id}; // Base condition
     if (search) {
         where.name = {contains: search}; // Add a search filter
