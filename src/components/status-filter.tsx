@@ -40,14 +40,6 @@ export default function StatusFilter({
         router.push(`/dashboard/${pageName}?${params.toString()}`)
     }
 
-    // Format status for display
-    const formatStatus = (status: string): string => {
-        if (status === '') return 'test'
-        return status.split('_').map(
-            word => word.charAt(0) + word.slice(1).toLowerCase()
-        ).join(' ')
-    }
-
     return (
         <div className="flex items-center space-x-2">
             <span className="text-sm text-muted-foreground">Status:</span>

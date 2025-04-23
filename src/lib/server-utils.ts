@@ -27,7 +27,7 @@ async function getQueryWithStatusFilter({
     const skip = (page - 1) * entries;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let where: any = {userId};
+    const where: any = {userId};
 
     if (status && status !== '') {
         // Ensure we're using a valid Status enum value
