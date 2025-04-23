@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  phone     String
+  email     String
+  userId    String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+  pets      Pet[]
+
+  @@map("clients")
+}
+
+model Pet {
+  id        String     @id @default(cuid())
+  name      String
+  petType   PetType    @default(DOG) @map("pet_type")
+  breed     String?
+  sex       Sex        @default(MALE)
+  fixed     Fixed      @default(INTACT)
+  client    Client     @relation(fields: [clientId], references: [id])
+  clientId  String     @map("client_id")
+  userId    String
+  updatedAt DateTime   @updatedAt
+  createdAt DateTime   @default(now())
+  boardings Boarding[]
+  daycares  Daycare[]
+
+  @@map("pets")
+}
+
+model Boarding {
+  id               String   @id @default(cuid())
+  checkInDateTime  DateTime @map("check_in_date_time")
+  checkOutDateTime DateTime @map("check_out_date_time")
+  status           Status   @default(CHECKED_IN)
+  pet              Pet      @relation(fields: [petId], references: [id])
+  petId            String   @map("pet_id")
+  userId           String
+  updatedAt        DateTime @updatedAt
+  createdAt        DateTime @default(now())
+
+  @@map("boardings")
+}
+
+model Daycare {
+  id              String   @id @default(cuid())
+  checkInDateTime DateTime @map("check_in_date_time")
+  status          Status   @default(CHECKED_IN)
+  pet             Pet      @relation(fields: [petId], references: [id])
+  petId           String   @map("pet_id")
+  userId          String
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+
+  @@map("daycares")
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  userId    String
+  status    String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@map("memberships")
+}
+
+enum PetType {
+  DOG
+  CAT
+}
+
+enum Sex {
+  MALE
+  FEMALE
+}
+
+enum Fixed {
+  INTACT
+  NEUTERED
+  SPAYED
+}
+
+enum Status {
+  CHECKED_IN
+  CHECKED_OUT
+  COMPLETED
+}
