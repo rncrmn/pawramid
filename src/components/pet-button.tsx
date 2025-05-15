@@ -6,6 +6,15 @@ import {Button} from "@/components/ui/button";
 import {FilePenLine, PawPrint, Trash2} from "lucide-react";
 import {flushSync} from "react-dom";
 import PetForm from "@/components/pet-form";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
 
 type PetButtonProps = {
     actionType: "add" | "edit" | "delete";
@@ -18,8 +27,25 @@ export default function PetButton({actionType, children, onClick}: PetButtonProp
 
     if (actionType === "delete") {
         return (
-            <Button onClick={onClick} variant="link" size="icon" className="size-5 cursor-pointer" asChild><Trash2
-                className="text-rose-600 hover:text-rose-700"/></Button>
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button variant="link" size="icon" className="size-5 cursor-pointer" asChild><Trash2
+                        className="text-rose-600 hover:text-rose-700"/></Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete your account
+                            and remove your data from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="cursor-pointer">Cancel</AlertDialogCancel>
+                        <AlertDialogAction className="cursor-pointer" onClick={onClick}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         )
     }
 
